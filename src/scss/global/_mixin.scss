@@ -1,0 +1,573 @@
+@charset "UTF-8";
+@use "sass:map";
+@use "sass:math";
+@use "variable" as *;
+@use "function" as *;
+
+// -----------------------
+// media querys break point value
+// -----------------------
+$breakpoints: (
+  "sm": "screen and (max-width: 420px)",
+  "sp": "screen and (max-width: 767px)",
+  "tb": "screen and (min-width: 768px) and (max-width: 1279px)",
+  "tb_hmb": "screen and (min-width: 768px) and (max-width: 1094px)",
+  "pc": "screen and (max-width: 1280px)",
+  "pcsub": "screen and (min-width: 768px) and (max-width: 840px)",
+) !default;
+
+// ----------------------------
+// media querys
+// ----------------------------
+@mixin mq($breakpoint: "sp") {
+  @media #{map.get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+// ----------------------------
+// fontStyle
+// ----------------------------
+@mixin fontStyle($w: r) {
+  font-family: "Noto Sans JP", "Inter", YakuHanJP, "ヒラギノ角ゴ Pro W3",
+    "Hiragino Kaku Gothic ProN", "Hiragino Kaku Gothic Pro", "游ゴシック体",
+    "Yu Gothic", YuGothic, "游ゴシック", "Yu Gothic", "メイリオ", Meiryo,
+    "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    @if $w == r {
+      font-weight: 400;
+    } @else if $w == m {
+      font-weight: 500;
+    } @else if $w == sb {
+      font-weight: 600;
+    } @else if $w == b {
+      font-weight: 700;
+    }
+}
+
+// ----------------------------
+// ankerStyle
+// ----------------------------
+@mixin ankerStyle($color: $text-base-color, $td: none) {
+  text-decoration: $td;
+  color: $color;
+  transition: opacity .3s;
+  &:visited {
+    text-decoration: $td;
+    color: $color;
+  }
+
+  &:hover {
+    text-decoration: $td;
+    opacity: 0.7;
+  }
+}
+
+// --------------------------------
+// addfontStyle
+// 命名 : addfont_{フォントファミリー名}
+// ---------------------------------
+
+@mixin addfont_Barlow($w: r) {
+  font-family: "Barlow";
+  @if $w == r {
+    font-weight: 400;
+  } @else if $w == m {
+    font-weight: 500;
+  } @else if $w == sb {
+    font-weight: 600;
+  } @else if $w == b {
+    font-weight: 700;
+  }
+}
+
+
+@mixin addfont_Inter($w: r) {
+  font-family: "Inter", sans-serif;
+  @if $w == r {
+    font-weight: 300;
+  } @else if $w == m {
+    font-weight: 500;
+  } @else if $w == sb {
+    font-weight: 600;
+  } @else if $w == b {
+    font-weight: 700;
+  }
+}
+
+// Ryumin
+@mixin addfont_Ryumin($w: l) {
+  @if $w == l {
+    font-family: "Ryumin Light KL";
+  } @else if $w == r {
+    font-family: "Ryumin Regular KL";
+  } @else if $w == m {
+    font-family: "Ryumin Medium KL";
+  } @else if $w == b {
+    font-family: "Ryumin Bold KL";
+  } @else if $w == eb {
+    font-family: "Ryumin ExtraBold KL";
+  } @else if $w == h {
+    font-family: "Ryumin Heavy KL";
+  } @else if $w == eh {
+    font-family: "Ryumin ExtraHeavy KL";
+  } @else if $w == u {
+    font-family: "Ryumin Ultra KL";
+  }
+}
+
+@mixin addfont_Roboto() {
+  font-family: "Roboto", sans-serif;
+}
+
+@mixin addfont_RobotoCondensed() {
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+// ----------------------------
+// display flex
+// ----------------------------
+@mixin flexStyle($justify-content: flex-start, $align-items: stretch) {
+  display: flex;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+// ----------------------------
+// position absolute => center
+// ----------------------------
+@mixin pac() {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// -------------------------------------------
+// Object Fit Plugin setting
+// -------------------------------------------
+@mixin object-fit($fit: fill, $position: null) {
+  object-fit: $fit;
+  @if $position {
+    object-position: $position;
+  }
+}
+
+// ----------------------------
+// サムネイル
+// 縦横比計算 画像の高さ / 画像の幅 * 100 = アスペクト比
+// ----------------------------
+@mixin thumbnail_aspect($photo_w: 0, $photo_h: 0, $objftSet: cover) {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    $aspect: (math.div($photo_h, $photo_w) * 100) * 1%;
+    content: "";
+    display: block;
+    padding-top: $aspect;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: $objftSet;
+    object-position: top;
+  }
+}
+
+// ---------------------------
+// clearfix
+// ------------------------------
+@mixin clearfix() {
+  height: 1px;
+  min-height: 1px;
+  &:after {
+    content: ".";
+    display: block;
+    clear: both;
+    height: 0;
+    visibility: hidden;
+  }
+}
+
+// ----------------------------
+// hover animation
+// ----------------------------
+@mixin hvopa($opa: 0.7, $time: 0.3) {
+  opacity: 1;
+  transition: $time + s;
+  cursor: pointer;
+  text-decoration: none;
+  backface-visibility: hidden;
+
+  &:hover {
+    opacity: $opa;
+    transition: $time + s;
+  }
+}
+
+// ----------------------------
+// font auto set
+// ------------------------------
+@mixin fontSet($df_fs: 26, $mq_w: 1200, $mq_fs: math.div($df_fs, $mq_w) * 100) {
+  font-size: #{$df_fs}px;
+
+  @media screen and (max-width:#{$mq_w}px) {
+    font-size: #{$mq_fs}vw;
+  }
+}
+
+@mixin fontSetPC(
+  $df_fs: 26,
+  $mq_w: 1200,
+  $mq_fs: math.div($df_fs, $mq_w) * 100
+) {
+  font-size: #{$df_fs}px;
+  @media screen and (min-width: 768px) and (max-width:#{$mq_w}px) {
+    font-size: #{$mq_fs}vw;
+  }
+}
+
+// ----------------------------
+// input resset
+// ------------------------------
+@mixin formReset_input() {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  background: none;
+  appearance: none;
+  @include fontStyle();
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  &::placeholder {
+    color: $grey-color;
+  }
+}
+
+// ----------------------------
+// select resset
+// ------------------------------
+@mixin formReset_select() {
+  appearance: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  @include fontStyle();
+
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+// ----------------------------
+// textarea resset
+// ------------------------------
+@mixin formReset_textarea() {
+  appearance: none;
+  resize: none;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  @include fontStyle();
+  &::placeholder {
+    color: $grey-color;
+  }
+}
+
+// ----------------------------
+// button resset
+// ------------------------------
+@mixin formReset_button() {
+  appearance: none;
+  resize: none;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  @include fontStyle();
+}
+
+// ----------------------------
+// text-overflow: ellipsis;
+// ------------------------------
+@mixin addEllipsis() {
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+// ----------------------------
+// font-feature-settings
+// ------------------------------
+@mixin ffs() {
+  font-feature-settings: "palt";
+  @media all and (-ms-high-contrast: none) {
+    font-feature-settings: normal;
+  }
+}
+
+// ----------------------------
+// text-decolation-color
+// ------------------------------
+@mixin textDecorationColor($color) {
+  &:hover {
+    color: $color;
+    text-decoration: underline;
+  }
+}
+
+// ----------------------------
+// letter-spacing
+// XDのAV値 / 1000
+// ------------------------------
+@mixin letter-spacing-calc($av) {
+  $result: math.div($av, 1000);
+  letter-spacing: #{$result}em;
+}
+
+// ----------------------------
+// line-height
+// XDの高さの値 / XDの文字サイズ
+// ------------------------------
+@mixin line-height-calc($height: 0, $fontsize: 0) {
+  $result: math.div($height, $fontsize);
+  $result: math.div(floor($result * 100), 100);
+  line-height: #{$result};
+}
+
+// ----------------------------
+// scrollbar
+// ----------------------------
+@mixin scrollbarInit($scrb_w: 1px, $scrb_c: #6c6c6c, $scrb_tr_c: $g04) {
+  // スクロールバー全体
+  &::-webkit-scrollbar {
+    width: $scrb_w;
+  }
+  // スクロールバーの軌道
+  &::-webkit-scrollbar-track {
+    background: $scrb_tr_c;
+  }
+  // スクロールバーの動く部分
+  &::-webkit-scrollbar-thumb {
+    background-color: $scrb_c;
+  }
+  // ie scrollbar color properties
+  // -ms-scrollbar-base-color: $scrb_c;
+  // -ms-scrollbar-face-color: $scrb_c;
+  // -ms-scrollbar-3dlight-color: $scrb_c;
+  // -ms-scrollbar-highlight-color: $scrb_c;
+  // -ms-scrollbar-track-color: $scrb_tr_c;
+  // -ms-scrollbar-arrow-color: $scrb_c;
+  // -ms-scrollbar-shadow-color: $scrb_c;
+  // -ms-scrollbar-dark-shadow-color: $scrb_c;
+  // -ms-overflow-style: none;
+}
+
+// ----------------------------
+// scrollbar
+// デフォルトのスクロールバー削除
+// ----------------------------
+@mixin scrollbarNone {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// ----------------------------
+// scrolltxt animation
+// ------------------------------
+@mixin scrollLineKeyframes($height, $color) {
+  height: $height + px;
+  &__line {
+    height: 100%;
+    &::before {
+      height: $height + px;
+      background-color: $color;
+      animation: scrollLine 1.4s linear infinite;
+    }
+  }
+  @keyframes scrollLine {
+    0% {
+      height: $height + px;
+    }
+    100% {
+      height: 0;
+    }
+  }
+}
+
+// ----------------------------
+// font-vw
+// ------------------------------
+@mixin font-vw($df_fs: 26, $mq_w: 1366) {
+  font-size: #{calcResult($df_fs, $mq_w)}vw;
+}
+
+// ----------------------------
+// mratio
+// 通常のCSSのようにまとめる部分追加
+// $df:(0,0,0,0) => $df:(0 0 0)
+// margin: 0 0 0として出力
+// ------------------------------
+@mixin mratio(
+  $df: (
+    0,
+    0,
+    0,
+    0,
+  ),
+  $mq_w: 1366,
+  $u: "%"
+) {
+  @if length($df) == 1 {
+    margin: #{calcResult(nth($df, 1), $mq_w)}#{$u};
+  } @else if length($df) == 2 {
+    margin: #{calcResult(nth($df, 1), $mq_w)}#{$u}
+      #{calcResult(nth($df, 2), $mq_w)}#{$u};
+  } @else if length($df) == 3 {
+    margin: #{calcResult(nth($df, 1), $mq_w)}#{$u}
+      #{calcResult(nth($df, 2), $mq_w)}#{$u}
+      #{calcResult(nth($df, 3), $mq_w)}#{$u};
+  } @else {
+    margin: #{calcResult(nth($df, 1), $mq_w)}#{$u}
+      #{calcResult(nth($df, 2), $mq_w)}#{$u}
+      #{calcResult(nth($df, 3), $mq_w)}#{$u}
+      #{calcResult(nth($df, 4), $mq_w)}#{$u};
+  }
+}
+
+// ----------------------------
+// pratio
+// 通常のCSSのようにまとめる部分追加
+// $df:(0,0,0,0) => $df:(0 0 0)
+//  padding: 0 0 0として出力
+// ------------------------------
+@mixin pratio(
+  $df: (
+    0,
+    0,
+    0,
+    0,
+  ),
+  $mq_w: 1366,
+  $u: "%"
+) {
+  @if length($df) == 1 {
+    padding: #{calcResult(nth($df, 1), $mq_w)}#{$u};
+  } @else if length($df) == 2 {
+    padding: #{calcResult(nth($df, 1), $mq_w)}#{$u}
+      #{calcResult(nth($df, 2), $mq_w)}#{$u};
+  } @else if length($df) == 3 {
+    padding: #{calcResult(nth($df, 1), $mq_w)}#{$u}
+      #{calcResult(nth($df, 2), $mq_w)}#{$u}
+      #{calcResult(nth($df, 3), $mq_w)}#{$u};
+  } @else {
+    padding: #{calcResult(nth($df, 1), $mq_w)}#{$u}
+      #{calcResult(nth($df, 2), $mq_w)}#{$u}
+      #{calcResult(nth($df, 3), $mq_w)}#{$u}
+      #{calcResult(nth($df, 4), $mq_w)}#{$u};
+  }
+}
+
+// ----------------------------
+// 特定ブラウザのみの反映
+// ------------------------------
+@mixin onlyBrowser($target) {
+  // IE11
+  @if $target == ie11 {
+    @at-root _:-ms-lang(x)::-ms-backdrop,
+      & {
+      @content;
+    }
+    // Edge(EdgeHTML)
+  } @else if $target == edge {
+    @at-root _:-ms-lang(x)::backdrop,
+      & {
+      @content;
+    }
+    //  Edge(Chromium)
+  } @else if $target == edge_c {
+    @at-root _:lang(x)::-ms-,
+      & {
+      @content;
+    }
+    // Chrome
+  } @else if $target == chrome {
+    @at-root _:lang(x)::-internal-media-controls-overlay-cast-button,
+      & {
+      @content;
+    }
+    // Safari
+  } @else if $target == safari {
+    @at-root _:lang(x) + _:-webkit-full-screen-document,
+      & {
+      @content;
+    }
+    // Firefox
+  } @else if $target == firefox {
+    @at-root _:lang(x)::-moz-placeholder,
+      & {
+      @content;
+    }
+    // Edge(EdgeHTML) & IE11 & IE10
+  } @else if $target == old {
+    @at-root _:-ms-lang(x),
+      & {
+      @content;
+    }
+    // Edge(Chromium) & Chrome & Safari & Firefox
+  } @else if $target == modern {
+    @at-root _:lang(x)::-webkit-,
+      & {
+      @content;
+    }
+    // iphone
+  } @else if $target == iphone8 {
+    @media screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) {
+      @content;
+    }
+  }
+}
+
+// ----------------------------
+// webp
+// webp対応 => @mixin webp
+// webp対応 => @mixin nowebp
+// それぞれ対応する
+// ------------------------------
+@mixin webp {
+  @at-root .webp & {
+    @content;
+  }
+}
+
+@mixin nowebp {
+  @at-root .no-webp & {
+    @content;
+  }
+}
+
+// ----------------------------
+// 文書折り返し
+// ----------------------------
+@mixin textWrap {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  /* ブラウザがoverflow-wrap: anywhereに対応していたら */
+  @supports (overflow-wrap: anywhere) {
+    overflow-wrap: anywhere;
+    hyphens: auto;
+  }
+}

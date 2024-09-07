@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+// -----------------------
+// colors
+// -----------------------
+//背景
+$bg-color: #16242E;
+$bg-sab-color: #CED9DF;
+$bg-btn-color: #B8B4B3;
+$bg-post-color: #eff3fa;
+$bg-input-color: #E5E5E5;
+
+//アクセント
+$primary-color: #16242E;
+$primary-sab-color: #CED9DF;
+
+//テキスト
+$text-base-color: #16242E;
+$text-sab-color: #CED9DF;
+$text-sab02-color: #839AA6;
+$text-sab03-color: #B8B4B3;
+$text-sab04-color: #808080;
+$text-btn-color: #16242E;
+$text-require-color: #B91C22;
+$text-change-color: #17b0be;
+
+//ボーダー
+$border-base-color: #16242E;
+$border-contact-cheackbox-color: #e5e5e5;
+$border-contact-color: #8F8F90;
+
+//汎用
+$white-color: #ffffff;
+$black-color: #000000;
+$grey-color: #cccccc;
+$red-color: #ec0000;
+
+// -----------------------
+// imgPath
+// -----------------------
+$imgPath: "../";
+
+// -----------------------
+// acd
+// -----------------------
+$version: "2024" + (#{random(9999)});
+$acd: "?" + $version;
+
+

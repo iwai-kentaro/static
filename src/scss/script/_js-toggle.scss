@@ -1,0 +1,40 @@
+@charset "UTF-8";
+@use "../global" as *;
+
+/*==========================
+共通トグル用 => .js-toggle
+==========================*/
+.js-toggle {
+  &__switch {
+    position: relative;
+    cursor: pointer;
+    // &::before,
+    // &::after {
+    //   content: "";
+    //   width: 13px;
+    //   height: 2px;
+    //   background: $blk01;
+    //   display: block;
+    //   position: absolute;
+    //   top: 50%;
+    //   left: auto;
+    //   right: 20px;
+    // }
+    // &::before {
+    //   transform: translateY(-50%) rotate(0);
+    // }
+    // &::after {
+    //   transition: 0.3s;
+    //   transform: translateY(-50%) rotate(90deg);
+    // }
+    &.is-active {
+      transition: 0.3s;
+      // &::after {
+      //   transform: translateY(-50%) rotate(0deg);
+      // }
+    }
+  }
+  &__next {
+    display: none;
+  }
+}

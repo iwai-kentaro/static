@@ -1,0 +1,58 @@
+@charset "UTF-8";
+@use "sass:map";
+@use "sass:math";
+
+// ----------------------------
+// setSingleVal
+// 割合の計算(単体)
+// $val => デザイン上の余白、フォントサイズなど
+// $w => ブロックの幅
+// $u => 単位
+// ------------------------------
+@function setSingleVal($val, $w: 1366, $u: "%") {
+  @return #{calcResult($val, $w)}#{$u};
+}
+
+// ----------------------------
+// calcResult
+// 割合の計算
+// $val => デザイン上の余白、フォントサイズなど
+// $w => ブロックの幅
+// ------------------------------
+@function calcResult($val, $w) {
+  @return math.div($val, $w) * 100;
+}
+
+
+// ----------------------------
+// calcResult
+// 割合の計算
+// ------------------------------
+@function calc-percentage($numerator, $denominator) {
+  @return math.div($numerator, $denominator) * 100%;
+}
+
+// ----------------------------
+// vw単位を計算する関数
+// ------------------------------
+@function vw($window_width, $size) {
+  @return math.div($size, $window_width) * 100vw;
+}
+
+@function rem($px) {
+  @return math.div($px,16) * 1rem;
+}
+
+
+
+@function rclamp($min, $max, $minViewport, $maxViewport) {
+  $vwScale: math.div(($max - $min), ($maxViewport - $minViewport));  // vw単位でのスケールを計算
+  $baseOffset: $min - $minViewport * $vwScale;  // 基準となる最小値からのオフセットを計算
+
+  $minRem: math.div($min, 16);  // 最小値をremに変換
+  $maxRem: math.div($max, 16);  // 最大値をremに変換
+  $baseOffsetRem: math.div($baseOffset, 16);  // オフセットをremに変換
+  $vwScaleRem: $vwScale * 100;  // vwスケールを調整
+
+  @return clamp(#{$minRem}rem, #{$baseOffsetRem}rem + #{$vwScaleRem}vw, #{$maxRem}rem);
+}

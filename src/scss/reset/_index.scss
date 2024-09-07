@@ -1,0 +1,131 @@
+@charset "UTF-8";
+@use "../global" as *;
+
+/*===========================
+reset style
+===========================*/
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  text-align: center;
+  @include letter-spacing-calc(100);
+  color: $text-base-color;
+  background: $white-color;
+  font-size: 16px;
+  @include fontStyle();
+  -webkit-text-size-adjust: 100%;
+  font-feature-settings: "palt";
+  overflow-x: hidden;
+  &.is-en {
+    @include addfont_RobotoCondensed();
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $text-base-color;
+  font-weight: normal;
+}
+
+p {
+  color: $text-base-color;
+  font-size: 16px;
+  line-height: 2.2em;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+  color: $text-base-color;
+}
+
+a {
+  @include ankerStyle();
+}
+
+address {
+  color: $text-base-color;
+  font-style: normal;
+}
+
+img {
+  vertical-align: bottom;
+  border: none;
+}
+
+dl,
+dt,
+dd {
+  margin: 0;
+  padding: 0;
+  color: $text-base-color;
+}
+
+main {
+  display: block;
+}
+
+picture {
+  display: block;
+}
+
+table,
+th,
+td {
+  color: $text-base-color;
+}
+
+header {
+  display: block;
+}
+
+footer {
+  display: block;
+}
+
+aside {
+  display: block;
+}
+
+pre {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+data {
+  display: block;
+}
+
+time {
+  display: block;
+}
+
+a[href^="tel:"] {
+  cursor: default;
+  pointer-events: none;
+  @include mq() {
+    cursor: pointer;
+    pointer-events: auto;
+  }
+}
+
+summary {
+  list-style: none;
+  &::-webkit-details-marker {
+    display: none;
+  }
+}

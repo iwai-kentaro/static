@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+// 共通のscss
+@use "reset";
+
+// 各レイアウトのscss
+@use "layout";
+
+// 各モジュールのscss
+@use "module";
+
+// 各スクリプトのscss
+@use "script";
+
+// 各プラグインのscss
+@use "plugin/swiper/swiper.min.css";
+@use "plugin/simplebar/simplebar";
+
+// 各ページのscss
+@use "page/top";

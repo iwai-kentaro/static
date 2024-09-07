@@ -1,0 +1,16 @@
+@charset "UTF-8";
+@use "../global" as *;
+
+/*==========================
+共通スライダー用 => .js-slider
+==========================*/
+.js-slider {
+  &__modul {
+    &Dots {
+      position: relative;
+    }
+    &Arw {
+      cursor: pointer;
+    }
+  }
+}

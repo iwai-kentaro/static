@@ -1,0 +1,20 @@
+@charset "UTF-8";
+@use "../global" as *;
+
+/*==================
+js-fadeIn
+==================*/
+.js-fadeIn {
+  opacity: 0;
+  transition: 1s;
+  &.is-show {
+    opacity: 1;
+  }
+  &-up {
+    transform: translate(0, 50px);
+    &.is-show {
+      transform: translate(0, 0);
+      opacity: 1;
+    }
+  }
+}
