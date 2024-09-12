@@ -7,19 +7,22 @@
 // -----------------------
 // media querys break point value
 // -----------------------
+
 $breakpoints: (
-  "sm": "screen and (max-width: 420px)",
-  "sp": "screen and (max-width: 767px)",
-  "tb": "screen and (min-width: 768px) and (max-width: 1279px)",
-  "tb_hmb": "screen and (min-width: 768px) and (max-width: 1094px)",
+  "sp": "screen and (max-width: 420px)",
+  "tb": "screen and (max-width: 767px)",
+  "big_tb": "screen and (max-width: 840px)",
+  "min_pc": "screen and (max-width: 1095px)",
   "pc": "screen and (max-width: 1280px)",
-  "pcsub": "screen and (min-width: 768px) and (max-width: 840px)",
+  "big_pc": "screen and (max-width: 1440px)",
 ) !default;
+
+
 
 // ----------------------------
 // media querys
 // ----------------------------
-@mixin mq($breakpoint: "sp") {
+@mixin mq($breakpoint: "tb") {
   @media #{map.get($breakpoints, $breakpoint)} {
     @content;
   }
