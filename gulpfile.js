@@ -89,10 +89,10 @@ gulp.task("server", function () {
             baseDir: "dist"
         }
     })
-    gulp.watch("./src/scss/**/*.scss", gulp.series("sass")),
-        gulp.watch("./src/js/**/*.js", gulp.series("js")),
-        gulp.watch("./src/images/**/*.{jpg,jpeg,png,gif,svg}", gulp.series("imagemin", "webp"));
-    gulp.watch("./dist/index.html").on("change", browserSync.reload)
+    gulp.watch("./src/scss/**/*.scss", gulp.series("sass")).on("change", browserSync.reload);
+    gulp.watch("./src/js/**/*.js", gulp.series("js")).on("change", browserSync.reload);
+    gulp.watch("./src/images/**/*.{jpg,jpeg,png,gif,svg}", gulp.series("imagemin", "webp")).on("change", browserSync.reload);
+    gulp.watch("./dist/**/*.html").on("change", browserSync.reload)
 })
 
 // defaultタスク
