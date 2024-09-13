@@ -9,12 +9,12 @@
 // -----------------------
 
 $breakpoints: (
-  "sp": "screen and (max-width: 420px)",
+  "min_sp": "screen and (max-width: 319px)",
+  "sp": "screen and (max-width: 419px)",
   "tb": "screen and (max-width: 767px)",
-  "big_tb": "screen and (max-width: 840px)",
-  "min_pc": "screen and (max-width: 1095px)",
-  "pc": "screen and (max-width: 1280px)",
-  "big_pc": "screen and (max-width: 1440px)",
+  "min_pc": "screen and (max-width: 1024px)",
+  "pc": "screen and (max-width: 1199px)",
+  "big_pc": "screen and (max-width: 1439px)",
 ) !default;
 
 
